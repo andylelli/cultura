@@ -2,6 +2,7 @@ import requests
 import time
 import sys
 import os
+import smbus2
 
 sys.path.insert(0,'/home/andylelli/gravity/GreenPonik_PH_Python/libs')
 sys.path.insert(0,'/home/andylelli/gravity/GreenPonik_PH_Python/src')
@@ -19,6 +20,8 @@ ADS1115_REG_CONFIG_PGA_0_256V = 0x0A  # 0.256V range = Gain 16
 ads1115 = ADS1115()
 ph = GreenPonik_PH()
 ph.begin()
+
+bus = smbus2.SMBus(1)  # Use bus number 1
 
 def api(channel, PH, unixTime):
     
@@ -66,10 +69,20 @@ def read_ph(address, channel, sensor):
     
     return PH
 
+def select_port(self,port): 
+    if(port > 8):
+        return
+    data = (1<<port) & 0xFF
+    bus.write_byte(self.addr,data)
+
+def readfrom_mem(self,port,addr,reg,nbytes):
+    self.select_port(port)
+    return self.i2c.read_i2c_block_data(addr,reg,nbytes)
  
 if __name__ == "__main__":
     while True:     
             
+        selectP    
         read_ph(0x48, 0, 1)
         read_ph(0x48, 1, 2)
         #read_ph(0x48, 2, 3)
