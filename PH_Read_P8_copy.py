@@ -71,7 +71,7 @@ if __name__ == "__main__":
     while True:     
             
         read_ph(0x48, 0, 1)
-        #read_ph(0x48, 1, 2)
+        read_ph(0x48, 1, 2)
         #read_ph(0x48, 2, 3)
         #read_ph(0x48, 3, 4)
         #read_ph(0x49, 0, 5)
